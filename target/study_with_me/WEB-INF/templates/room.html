@@ -9,38 +9,6 @@
     <link rel="stylesheet" th:href="@{/static/css/style.css}" />
     <link rel="stylesheet" href="../../static/css/style.css" />
 
-    <!-- <script th:inline="javascript">
-      var roomId = Number(/*[[${ roomId }]]*/);
-      function modifyNum() {
-        // 无效，获取的不是实时的application域对象
-        // var QtyofPeopleinRoom = [[${ application.QtyofPeopleinRoomName }]];
-        // var numb = QtyofPeopleinRoom[roomId];
-        // document.getElementById("time").innerHTML = new Date().getTime();
-        // document.getElementById("num2").innerHTML = "当前x自习室人数：" + numb;
-
-        var request = new XMLHttpRequest();
-        var url = "peopleCount?roomId=" + roomId;
-        // 初始化请求
-        request.open("GET", url);
-        request.onreadystatechange = function () {
-          // 检查请求是否成功
-          if (this.readyState === 4 && this.status === 200) {
-            // 插入响应内容
-            document.getElementById("people-cnt").innerHTML = this.responseText;
-          }
-        };
-        // 发送请求
-        request.send();
-      }
-      // 设置每隔1秒执行一次
-      window.setInterval(modifyNum, 1000);
-
-      // 窗口关闭或刷新时发出离开自习室请求
-      window.addEventListener("beforeunload", function () {
-        var url = "leaveRoom?roomId=" + roomId;
-        navigator.sendBeacon(url);
-      });
-    </script> -->
     <script th:inline="javascript">
         var roomId = Number(/*[[${ roomId }]]*/);
         function Info(action, roomId) {

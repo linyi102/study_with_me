@@ -1,6 +1,7 @@
 package com.example.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.example.bean.RoomHandler;
 
@@ -12,6 +13,7 @@ import org.springframework.web.socket.WebSocketSession;
 public class PeopleRecordUtil {
     private final int roomCnt = 10;
     private ArrayList<ArrayList<SessionEntity>> clientsOfRoom = new ArrayList<>();
+    // private ArrayList<HashMap<String, WebSocketSession>> clientsOfRoom = new ArrayList<>();
     private static final Logger logger = LoggerFactory.getLogger(RoomHandler.class);
 
     // 必须要为每个元素指定一个空间
