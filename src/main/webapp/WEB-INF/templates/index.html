@@ -10,10 +10,11 @@
     <!-- <link rel="stylesheet" href="../../static/css/style.css" /> -->
     <script>
         var url = "ws://localhost:8080/study_with_me/index_web_socket";
+        // var url = "ws://5wyjv9.natappfree.cc/study_with_me/index_web_socket";
         var socket = new WebSocket(url);
         socket.onopen = function () {
             console.log("enter index page");
-            socket.send("enter index page");
+            // socket.send("enter index page");
         }
         socket.onmessage = function (e) {
             // 处理发送来的消息：所有自习室的各自人数
@@ -26,7 +27,7 @@
         }
         window.addEventListener("beforeunload", function () {
             console.log("leave index page");
-            socket.send("leave index page");
+            // socket.send("leave index page");
         });
     </script>
 </head>
