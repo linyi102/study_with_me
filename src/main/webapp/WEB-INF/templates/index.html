@@ -8,6 +8,29 @@
     <title>所有自习室</title>
     <link rel="stylesheet" th:href="@{/static/css/style.css}" />
     <!-- <link rel="stylesheet" href="../../static/css/style.css" /> -->
+    <script>
+        var url = "ws://localhost:8080/study_with_me/index_web_socket";
+        var socket = new WebSocket(url);
+        socket.onopen = function () {
+            console.log("enter index page");
+            socket.send("enter index page");
+        }
+        socket.onmessage = function (e) {
+            // 处理发送来的消息：所有自习室的各自人数
+            console.log(e.data);
+            var str = e.data;
+            console.log("str=" + str);
+            var peopleCntOfRoom = str.split(" ");;
+            for (var roomId = 1; roomId < 5; ++roomId) {
+                var elementId = "room" + roomId;
+                document.getElementById(elementId).innerHTML = peopleCntOfRoom[roomId];
+            }
+        }
+        window.addEventListener("beforeunload", function () {
+            console.log("leave index page");
+            socket.send("leave index page");
+        });
+    </script>
 </head>
 
 <body>
@@ -17,22 +40,22 @@
         <p class="room">
             <a th:href="@{/room/enterRoom?roomId=1}">自习室 1</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room1"></span>
+            <span id="room1">0</span>
         </p>
         <p class="room">
             <a th:href="@{/room/enterRoom?roomId=2}">自习室 2</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room2"></span>
+            <span id="room2">0</span>
         </p>
         <p class="room">
             <a th:href="@{/room/enterRoom?roomId=3}">自习室 3</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room3"></span>
+            <span id="room3">0</span>
         </p>
         <p class="room">
             <a th:href="@{/room/enterRoom?roomId=4}">自习室 4</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room4"></span>
+            <span id="room4">0</span>
         </p>
     </div>
 </body>

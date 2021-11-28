@@ -1,10 +1,12 @@
 com\example\config\RoomWebSocketConfig.class
-com\example\bean\RoomHandler.class
-com\example\util\SessionEntity.class
-com\example\config\WebSocketConfig.class
+com\example\util\IndexClientRecordUtil.class
 com\example\bean\RoomState.class
 com\example\controller\RoomController.class
-com\example\listener\OnLineListener.class
 com\example\controller\IndexController.class
+com\example\bean\IndexHandler.class
+com\example\util\RoomClientRecordUtil.class
+com\example\bean\RoomHandler.class
+com\example\config\WebSocketConfig.class
+com\example\listener\OnLineListener.class
+com\example\config\IndexWebSocketConfig.class
 com\example\bean\MacroHandler.class
-com\example\util\PeopleRecordUtil.class

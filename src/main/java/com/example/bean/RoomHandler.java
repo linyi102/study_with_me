@@ -1,6 +1,6 @@
 package com.example.bean;
 
-import com.example.util.PeopleRecordUtil;
+import com.example.util.RoomClientRecordUtil;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,19 +12,19 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 import net.sf.json.JSONObject;
 
 public class RoomHandler extends AbstractWebSocketHandler {
-    PeopleRecordUtil peopleRecordUtil = new PeopleRecordUtil();
+    RoomClientRecordUtil peopleRecordUtil = RoomClientRecordUtil.getInstance();
     private static final Logger logger = LoggerFactory.getLogger(RoomHandler.class);
-
-    @Override
-    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
-        super.afterConnectionClosed(session, status);
-        logger.info("👉Connecton closed. status: " + status);
-    }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
         logger.info("👉Connection established.");
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        super.afterConnectionClosed(session, status);
+        logger.info("👉Connecton closed. status: " + status);
     }
 
     @Override
@@ -40,10 +40,14 @@ public class RoomHandler extends AbstractWebSocketHandler {
 
         int roomId = roomState.getRoomId();
         if (roomState.getAction().equals("enter")) { // big error: 判断字符串相等用了==
-            peopleRecordUtil.addPeople(session, roomId);
+            peopleRecordUtil.addClient(session, roomId);
         } else if (roomState.getAction().equals("leave")) {
-            peopleRecordUtil.deletePeople(session, roomId);
+            peopleRecordUtil.removeClient(session, roomId);
+        } else {
+            throw new Exception("💥error status!");
         }
-        peopleRecordUtil.pushClient(roomId);
+        peopleRecordUtil.pushRoomPeopleCntToClient(roomId);
+        // 同时把所有自习室的各自人数推送给主页的所有客户端，避免直接关闭浏览器，而不会进入主页，这样主页就没有更新了
+        peopleRecordUtil.pushAllRoomPeopleCntToClient();
     }
 }
