@@ -8,52 +8,6 @@
     <title>所有自习室</title>
     <link rel="stylesheet" th:href="@{/static/css/style.css}" />
     <link rel="stylesheet" href="../../static/css/style.css" />
-
-    <!-- <script th:inline="javascript">
-        function getAllRoomPeople() {
-            var request = new XMLHttpRequest();
-            var url = "room/peopleAllCount";
-            // 初始化请求
-            request.open("GET", url);
-            request.onreadystatechange = function () {
-                // 检查请求是否成功
-                if (this.readyState === 4 && this.status === 200) {
-                    // 以空格分隔，获得数组
-                    var cnt = this.responseText.split(" ");
-                    // console.log(cnt);
-                    for (var i = 0; i < 4; ++i) {
-                        var elementId = "room" + (i + 1);
-                        // 插入响应内容
-                        document.getElementById(elementId).innerHTML = cnt[i];
-                    }
-                }
-            };
-            // 发送请求
-            request.send();
-        }
-        // 设置每隔1秒执行一次
-        window.setInterval(getAllRoomPeople, 1000);
-    </script> -->
-    <script>
-        var url = "ws://localhost:8080/study_with_me/macro";
-        var sock = new WebSocket(url);
-        sock.onopen = function () { // 处理连接开启时间
-            console.log('Opening');
-            sayMarco();
-        }
-        sock.onmessage = function (e) { // 处理信息
-            console.log('Received message: ', e.data);
-            setTimeout(function () { sayMarco() }, 2000);
-        }
-        sock.onclose = function () { // 处理连接关闭时间
-            console.log('Closing');
-        }
-
-        function sayMarco() {
-            console.log('sending Marco!');
-            sock.send("Marco!"); // 发送信息
-        }
-    </script>
 </head>
 
 <body>
@@ -61,24 +15,24 @@
         <h1 id="project-name">STUDY WITH ME</h1>
         <h4 id="alias">自习小屋📚</h4>
         <p class="room">
-            <a th:href="@{/room/enterRoom?roomID=1}">自习室 1</a> &emsp;
+            <a th:href="@{/room/enterRoom?roomId=1}">自习室 1</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room1" th:text="${application.QtyofPeopleinRoomName[1]}"></span>
+            <span id="room1"></span>
         </p>
         <p class="room">
-            <a th:href="@{/room/enterRoom?roomID=2}">自习室 2</a> &emsp;
+            <a th:href="@{/room/enterRoom?roomId=2}">自习室 2</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room2" th:text="${application.QtyofPeopleinRoomName[2]}"></span>
+            <span id="room2"></span>
         </p>
         <p class="room">
-            <a th:href="@{/room/enterRoom?roomID=3}">自习室 3</a> &emsp;
+            <a th:href="@{/room/enterRoom?roomId=3}">自习室 3</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room3" th:text="${application.QtyofPeopleinRoomName[3]}"></span>
+            <span id="room3"></span>
         </p>
         <p class="room">
-            <a th:href="@{/room/enterRoom?roomID=4}">自习室 4</a> &emsp;
+            <a th:href="@{/room/enterRoom?roomId=4}">自习室 4</a> &emsp;
             <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" />
-            <span id="room4" th:text="${application.QtyofPeopleinRoomName[4]}"></span>
+            <span id="room4"></span>
         </p>
     </div>
 </body>

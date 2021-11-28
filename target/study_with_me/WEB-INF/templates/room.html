@@ -10,16 +10,16 @@
     <link rel="stylesheet" href="../../static/css/style.css" />
 
     <!-- <script th:inline="javascript">
-      var roomID = Number(/*[[${ roomID }]]*/);
+      var roomId = Number(/*[[${ roomId }]]*/);
       function modifyNum() {
         // 无效，获取的不是实时的application域对象
         // var QtyofPeopleinRoom = [[${ application.QtyofPeopleinRoomName }]];
-        // var numb = QtyofPeopleinRoom[roomID];
+        // var numb = QtyofPeopleinRoom[roomId];
         // document.getElementById("time").innerHTML = new Date().getTime();
         // document.getElementById("num2").innerHTML = "当前x自习室人数：" + numb;
 
         var request = new XMLHttpRequest();
-        var url = "peopleCount?roomID=" + roomID;
+        var url = "peopleCount?roomId=" + roomId;
         // 初始化请求
         request.open("GET", url);
         request.onreadystatechange = function () {
@@ -37,12 +37,12 @@
 
       // 窗口关闭或刷新时发出离开自习室请求
       window.addEventListener("beforeunload", function () {
-        var url = "leaveRoom?roomID=" + roomID;
+        var url = "leaveRoom?roomId=" + roomId;
         navigator.sendBeacon(url);
       });
     </script> -->
     <script th:inline="javascript">
-        var roomId = Number(/*[[${ roomID }]]*/);
+        var roomId = Number(/*[[${ roomId }]]*/);
         function Info(action, roomId) {
             this.action = action;
             this.roomId = roomId;
@@ -81,7 +81,7 @@
 <body>
     <div id="global">
         <!-- ${x} 将返回存储在 Thymeleaf 上下文中或作为 request 属性的变量 x -->
-        <h1>自习室 <span th:text="${roomID}"></span></h1>
+        <h1>自习室 <span th:text="${roomId}"></span></h1>
 
         <p id="current-room-people-cnt">
             当前自习室人数：<span id="people-cnt"></span>

@@ -1,5 +1,6 @@
 com\example\config\RoomWebSocketConfig.class
 com\example\bean\RoomHandler.class
+com\example\util\SessionEntity.class
 com\example\config\WebSocketConfig.class
 com\example\bean\RoomState.class
 com\example\controller\RoomController.class
