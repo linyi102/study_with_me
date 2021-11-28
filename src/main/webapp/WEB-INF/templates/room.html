@@ -52,18 +52,19 @@
         <h1>自习室 <span th:text="${roomId}"></span></h1>
 
         <p id="current-room-people-cnt">
-            当前自习室人数：<span id="people-cnt"></span>
+            <img th:src="@{/static/img/person.png}" width="20" style="vertical-align: bottom" /><span
+                id="people-cnt">0</span>
         </p>
 
-        <div id="timer">
+        <!-- <div id="timer">
             <div style="color: black">⏱已学习</div>
             <div id="showTime" style="color: black">0 时 0 分 0 秒</div>
-        </div>
+        </div> -->
 
-        <!-- <p style="text-align: center;"><a th:href="@{/}">退出自习室</a></p> -->
-        <p style="text-align: center">
+        <p style="text-align: center;"><a th:href="@{/}">退出自习室</a></p>
+        <!-- <p style="text-align: center">
             <a href="javascript:history.back(-1)">退出自习室</a>
-        </p>
+        </p> -->
     </div>
 </body>
 

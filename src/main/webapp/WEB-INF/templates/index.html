@@ -18,9 +18,7 @@
         socket.onmessage = function (e) {
             // 处理发送来的消息：所有自习室的各自人数
             console.log(e.data);
-            var str = e.data;
-            console.log("str=" + str);
-            var peopleCntOfRoom = str.split(" ");;
+            var peopleCntOfRoom = e.data.split(" ");
             for (var roomId = 1; roomId < 5; ++roomId) {
                 var elementId = "room" + roomId;
                 document.getElementById(elementId).innerHTML = peopleCntOfRoom[roomId];
