@@ -1,5 +1,6 @@
 package com.example.bean;
 
+import com.example.util.IndexClientRecordUtil;
 import com.example.util.RoomClientRecordUtil;
 
 import org.slf4j.Logger;
@@ -12,8 +13,9 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 import net.sf.json.JSONObject;
 
 public class RoomHandler extends AbstractWebSocketHandler {
-    RoomClientRecordUtil peopleRecordUtil = RoomClientRecordUtil.getInstance();
     private static final Logger logger = LoggerFactory.getLogger(RoomHandler.class);
+    RoomClientRecordUtil roomClientRecordUtil = RoomClientRecordUtil.getInstance();
+    IndexClientRecordUtil indexClientRecordUtil = IndexClientRecordUtil.getInstance();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -40,14 +42,14 @@ public class RoomHandler extends AbstractWebSocketHandler {
 
         int roomId = roomState.getRoomId();
         if (roomState.getAction().equals("enter")) { // big error: 判断字符串相等用了==
-            peopleRecordUtil.addClient(session, roomId);
+            roomClientRecordUtil.addClient(session, roomId);
         } else if (roomState.getAction().equals("leave")) {
-            peopleRecordUtil.removeClient(session, roomId);
+            roomClientRecordUtil.removeClient(session, roomId);
         } else {
             throw new Exception("💥error status!");
         }
-        peopleRecordUtil.pushRoomPeopleCntToClient(roomId);
-        // 同时把所有自习室的各自人数推送给主页的所有客户端，避免直接关闭浏览器，而不会进入主页，这样主页就没有更新了
-        peopleRecordUtil.pushAllRoomPeopleCntToClient();
+        roomClientRecordUtil.pushRoomPeopleCntToAllClients(roomId);
+        // 每当有人进出自习室，还要给主页的所有客户端推送消息
+        indexClientRecordUtil.pushAllRoomsPeopleCntToAllClients();
     }
 }

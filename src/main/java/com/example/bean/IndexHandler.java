@@ -11,9 +11,9 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.AbstractWebSocketHandler;
 
 public class IndexHandler extends AbstractWebSocketHandler {
-    IndexClientRecordUtil indexClientRecordUtil = IndexClientRecordUtil.getInstance();
     private static final Logger logger = LoggerFactory.getLogger(IndexHandler.class);
-    RoomClientRecordUtil peopleRecordUtil = RoomClientRecordUtil.getInstance();
+    RoomClientRecordUtil roomClientRecordUtil = RoomClientRecordUtil.getInstance();
+    IndexClientRecordUtil indexClientRecordUtil = IndexClientRecordUtil.getInstance();
 
     // 进入主页，客户端与服务端建立，服务端向客户端发送数据：所有自习室的各自人数
     @Override
@@ -43,6 +43,7 @@ public class IndexHandler extends AbstractWebSocketHandler {
         } else {
             throw new Exception("💥error status!");
         }
-        peopleRecordUtil.pushAllRoomPeopleCntToClient();
+        // 尽管自习室人数没有影响，但主页需要获取到所有自习室的人数，因此仅需要对进主页的推送消息
+        indexClientRecordUtil.pushAllRoomsPeopleCntToClient(session);
     }
 }
