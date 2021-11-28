@@ -43,11 +43,11 @@ public class OnLineListener implements ServletContextListener, HttpSessionListen
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        // 一定要先获取，否则application是null
-        application = sce.getServletContext();
-        // 把数组添加到application域对象中
-        application.setAttribute("QtyofPeopleinRoomName", QtyofPeopleinRoom);
-        System.out.println(">---------创建上下文参数成功！---------<");
+        // // 一定要先获取，否则application是null
+        // application = sce.getServletContext();
+        // // 把数组添加到application域对象中
+        // application.setAttribute("QtyofPeopleinRoomName", QtyofPeopleinRoom);
+        // System.out.println(">---------创建上下文参数成功！---------<");
     }
 
     @Override

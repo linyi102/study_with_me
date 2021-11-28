@@ -62,7 +62,7 @@
         }
         socket.onmessage = function (e) {
             // 处理发送来的消息：当前自习室人数
-            console.log(e.data);
+            console.log("当前人数：" + e.data);
             document.getElementById("people-cnt").innerHTML = e.data;
         }
         function sendInfo(info) {

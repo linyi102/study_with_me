@@ -60,16 +60,6 @@ public class RoomController {
         ServletContext application;
         int[] QtyofPeopleinRoom;
 
-        // application = request.getServletContext();
-        // // 从application域中获取所有自习室人数数组
-        // QtyofPeopleinRoom = (int[])application.getAttribute("QtyofPeopleinRoomName");
-        // if (QtyofPeopleinRoom == null)
-        // return mv;
-        // // 所在的自习室人数+1
-        // QtyofPeopleinRoom[roomID]++;
-        // // 更新application域的所有自习室人数数组
-        // application.setAttribute("QtyofPeopleinRoomName", QtyofPeopleinRoom);
-
         synchronized (application = request.getServletContext()) {
             // 从application域中获取所有自习室人数数组
             QtyofPeopleinRoom = (int[])application.getAttribute("QtyofPeopleinRoomName");
