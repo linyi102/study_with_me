@@ -27,6 +27,11 @@ public class RoomHandler extends AbstractWebSocketHandler {
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         super.afterConnectionClosed(session, status);
         logger.info("👉Connecton closed. status: " + status);
+        int roomId = roomClientRecordUtil.getSessionIdHashRoomId().get(session.getId());
+        roomClientRecordUtil.removeClient(session, roomId);
+        // 推送在自习室的所有客户端：当前自习室人数，推送主页的所有客户端：所有自习室人数
+        roomClientRecordUtil.pushRoomPeopleCntToAllClients(roomId);
+        indexClientRecordUtil.pushAllRoomsPeopleCntToAllClients();
     }
 
     @Override
@@ -43,9 +48,12 @@ public class RoomHandler extends AbstractWebSocketHandler {
         int roomId = roomState.getRoomId();
         if (roomState.getAction().equals("enter")) { // big error: 判断字符串相等用了==
             roomClientRecordUtil.addClient(session, roomId);
-        } else if (roomState.getAction().equals("leave")) {
-            roomClientRecordUtil.removeClient(session, roomId);
-        } else {
+        }
+        // 改为afterConnectionClosed处理，避免WebSocket过时不会发送消息给服务端，也就消除不了记录了
+        // else if (roomState.getAction().equals("leave")) {
+        // roomClientRecordUtil.removeClient(session, roomId);
+        // }
+        else {
             throw new Exception("💥error status!");
         }
         roomClientRecordUtil.pushRoomPeopleCntToAllClients(roomId);

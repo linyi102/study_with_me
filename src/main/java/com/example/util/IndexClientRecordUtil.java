@@ -34,12 +34,12 @@ public class IndexClientRecordUtil {
     }
 
     public void addClient(WebSocketSession session) {
-        logger.info("⏩进入主页：sessionId=" + session.getId());
+        logger.info("⏩进入主页的客户端：sessionId=" + session.getId());
         clientsOfIndex.add(session);
     }
 
     public void removeClient(WebSocketSession session) {
-        logger.info("⏩离开主页：sessionId=" + session.getId());
+        logger.info("⏩离开主页的客户端：sessionId=" + session.getId());
         clientsOfIndex.remove(session);
     }
 

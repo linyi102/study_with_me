@@ -17,17 +17,18 @@
         };
 
         var url = "ws://localhost:8080/study_with_me/room_web_socket";
-        // var url = "ws://5wyjv9.natappfree.cc/study_with_me/room_web_socket";
+        // var url = "ws://8.141.147.248:8080/study_with_me/room_web_socket";
         var socket = new WebSocket(url);
         socket.onopen = function () {
             // 连接开启时发送自习室id
             var info = new Info("enter", roomId);
             sendInfo(info);
         }
-        // ！无效，使用监听
+        // 不能在onclose属性中发送消息
         socket.onclose = function () {
-            var info = new Info("leave", roomId);
-            sendInfo(info);
+            // var info = new Info("leave", roomId);
+            // sendInfo(info);
+            console.log('websocket 断开: ' + e.code + ' ' + e.reason + ' ' + e.wasClean)
         }
         socket.onmessage = function (e) {
             // 处理发送来的消息：当前自习室人数
@@ -35,15 +36,15 @@
             document.getElementById("people-cnt").innerHTML = e.data;
         }
         function sendInfo(info) {
-            var infoJson = JSON.stringify(info);
+            var infoJson = JSON.stringify(info); // 转换成json字符串
             console.log(infoJson);
             socket.send(infoJson);
         }
         // 窗口关闭或刷新时发出离开自习室请求
-        window.addEventListener("beforeunload", function () {
-            var info = new Info("leave", roomId);
-            sendInfo(info);
-        });
+        // window.addEventListener("beforeunload", function () {
+        //     var info = new Info("leave", roomId);
+        //     sendInfo(info);
+        // });
     </script>
 </head>
 

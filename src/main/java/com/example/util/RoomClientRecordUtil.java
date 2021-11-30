@@ -13,6 +13,7 @@ public class RoomClientRecordUtil {
     private static final Logger logger = LoggerFactory.getLogger(RoomClientRecordUtil.class);
     private final int roomCnt = 10;
     private ArrayList<HashMap<String, WebSocketSession>> clientsOfRoom = new ArrayList<>();
+    private HashMap<String, Integer> sessionIdHashRoomId = new HashMap<>();
     private static RoomClientRecordUtil roomClientRecordUtil;
 
     // 必须要为每个元素指定一个空间
@@ -35,13 +36,15 @@ public class RoomClientRecordUtil {
     }
 
     public void addClient(WebSocketSession session, int roomId) {
-        logger.info("⏩进入自习室" + roomId + "：sessionId=" + session.getId());
+        logger.info("⏩进入自习室" + roomId + "的客户端：sessionId=" + session.getId());
         clientsOfRoom.get(roomId).put(session.getId(), session);
+        sessionIdHashRoomId.put(session.getId(), roomId);
     }
 
     public void removeClient(WebSocketSession session, int roomId) {
-        logger.info("⏪退出自习室" + roomId + "：sessionId=" + session.getId());
+        logger.info("⏪退出自习室" + roomId + "的客户端：sessionId=" + session.getId());
         clientsOfRoom.get(roomId).remove(session.getId());
+        sessionIdHashRoomId.remove(session.getId());
     }
 
     public void pushRoomPeopleCntToAllClients(int roomId) throws Exception {
@@ -59,5 +62,9 @@ public class RoomClientRecordUtil {
 
     public ArrayList<HashMap<String, WebSocketSession>> getClientsOfRoom() {
         return clientsOfRoom;
+    }
+
+    public HashMap<String, Integer> getSessionIdHashRoomId() {
+        return sessionIdHashRoomId;
     }
 }

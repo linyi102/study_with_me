@@ -19,8 +19,8 @@ public class IndexHandler extends AbstractWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
         super.afterConnectionEstablished(session);
         logger.info("👉Connection established.");
-        // 为啥之前会提示NullException，现在却没有了？
         indexClientRecordUtil.addClient(session);
+        // 当访问主页时，向该客户端推送消息，用来更新所有自习室的各自人数
         indexClientRecordUtil.pushAllRoomsPeopleCntToClient(session);
     }
 
@@ -37,13 +37,13 @@ public class IndexHandler extends AbstractWebSocketHandler {
         // String msg = message.getPayload();
         // logger.info("📤Received message: " + msg);
         // if (msg.equals("enter index page")) {
-        //     indexClientRecordUtil.addClient(session);
-        // } else if (msg.equals("leave index page")) {
-        //     indexClientRecordUtil.removeClient(session);
-        // } else {
-        //     throw new Exception("💥error status!");
-        // }
-        // // 尽管自习室人数没有影响，但主页需要获取到所有自习室的人数，因此仅需要对进主页的推送消息
+        // indexClientRecordUtil.addClient(session);
+        // // 尽管自习室人数没有影响，但刚进主页，就需要获取到所有自习室的人数，因此仅需要对进主页的推送消息
         // indexClientRecordUtil.pushAllRoomsPeopleCntToClient(session);
+        // } else if (msg.equals("leave index page")) {
+        // indexClientRecordUtil.removeClient(session);
+        // } else {
+        // throw new Exception("💥error status!");
+        // }
     }
 }
