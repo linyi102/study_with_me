@@ -14,7 +14,7 @@ public class RoomClientRecordUtil {
     private final int roomCnt = 10;
     private ArrayList<HashMap<String, WebSocketSession>> clientsOfRoom = new ArrayList<>();
     private HashMap<String, Integer> sessionIdHashRoomId = new HashMap<>();
-    private static RoomClientRecordUtil roomClientRecordUtil;
+    private static volatile RoomClientRecordUtil roomClientRecordUtil; // volatile防止重排序
 
     // 必须要为每个元素指定一个空间
     private RoomClientRecordUtil() {

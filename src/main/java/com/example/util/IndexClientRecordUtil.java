@@ -14,7 +14,7 @@ import org.springframework.web.socket.WebSocketSession;
 public class IndexClientRecordUtil {
     private static final Logger logger = LoggerFactory.getLogger(IndexClientRecordUtil.class);
     private HashSet<WebSocketSession> clientsOfIndex = new HashSet<>();
-    private static IndexClientRecordUtil indexClientRecordUtil;
+    private static volatile IndexClientRecordUtil indexClientRecordUtil; // volatile防止重排序
 
     private IndexClientRecordUtil() {}
 
