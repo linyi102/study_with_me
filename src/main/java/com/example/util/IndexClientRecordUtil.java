@@ -13,7 +13,7 @@ import org.springframework.web.socket.WebSocketSession;
 // 单例模式，目的是为了IndexHandler和RoomClientRecordUtil都可以处理主页客户端
 public class IndexClientRecordUtil {
     private static final Logger logger = LoggerFactory.getLogger(IndexClientRecordUtil.class);
-    private HashSet<WebSocketSession> clientsOfIndex = new HashSet<>();
+    private HashSet<WebSocketSession> clientsOfIndex = new HashSet<>(); // 主页的所有客户端
     private static volatile IndexClientRecordUtil indexClientRecordUtil; // volatile防止重排序
 
     private IndexClientRecordUtil() {}
