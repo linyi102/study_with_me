@@ -67,4 +67,8 @@ public class RoomClientRecordUtil {
     public HashMap<String, Integer> getSessionIdHashRoomId() {
         return sessionIdHashRoomId;
     }
+
+    public int getRoomIdBySessionId(String sessionId) {
+        return sessionIdHashRoomId.get(sessionId);
+    }
 }

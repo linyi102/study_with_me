@@ -7,10 +7,10 @@
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
     <title>所有自习室</title>
     <link rel="stylesheet" th:href="@{/static/css/style.css}" />
-    <!-- <link rel="stylesheet" href="../../static/css/style.css" /> -->
+    <link rel="stylesheet" href="../../static/css/style.css" />
     <script>
-        // var url = "ws://localhost:8080/study_with_me/index_web_socket";
-        var url = "ws://8.141.147.248:8080/study_with_me/index_web_socket";
+        var url = "ws://localhost:8080/study_with_me/index_web_socket";
+        // var url = "ws://8.141.147.248:8080/study_with_me/index_web_socket";
         var socket = new WebSocket(url);
         socket.onopen = function () {
             console.log("enter index page");

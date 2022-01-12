@@ -12,6 +12,10 @@ public class RoomState {
         this.action = action;
     }
 
+    public boolean isEnter() {
+        return action.equals("enter");
+    }
+
     public int getRoomId() {
         return roomId;
     }
