@@ -12,13 +12,13 @@ import org.springframework.web.socket.WebSocketSession;
 public class RoomClientRecordUtil {
     private static final Logger logger = LoggerFactory.getLogger(RoomClientRecordUtil.class);
     private final int roomCnt = 10;
-    private ArrayList<HashMap<String, WebSocketSession>> clientsOfRoom = new ArrayList<>();
-    private HashMap<String, Integer> sessionIdHashRoomId = new HashMap<>();
+    private ArrayList<HashMap<String, WebSocketSession>> clientsOfRoom = new ArrayList<>(); // 数组，每个元素是一个sessionId到WebSocketSession的映射
+    private HashMap<String, Integer> sessionIdHashRoomId = new HashMap<>(); // 根据sessionId找到进入的自习室
     private static volatile RoomClientRecordUtil roomClientRecordUtil; // volatile防止重排序
 
     // 必须要为每个元素指定一个空间
     private RoomClientRecordUtil() {
-        for (int i = 0; i < roomCnt; ++i) {
+        for (int i = 0; i <= roomCnt; ++i) {
             clientsOfRoom.add(new HashMap<String, WebSocketSession>());
         }
     }
@@ -35,13 +35,13 @@ public class RoomClientRecordUtil {
         return roomClientRecordUtil;
     }
 
-    public void addClient(WebSocketSession session, int roomId) {
+    synchronized public void addClient(WebSocketSession session, int roomId) {
         logger.info("⏩进入自习室" + roomId + "的客户端：sessionId=" + session.getId());
         clientsOfRoom.get(roomId).put(session.getId(), session);
         sessionIdHashRoomId.put(session.getId(), roomId);
     }
 
-    public void removeClient(WebSocketSession session, int roomId) {
+    synchronized public void removeClient(WebSocketSession session, int roomId) {
         logger.info("⏪退出自习室" + roomId + "的客户端：sessionId=" + session.getId());
         clientsOfRoom.get(roomId).remove(session.getId());
         sessionIdHashRoomId.remove(session.getId());
